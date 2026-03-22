@@ -1,0 +1,219 @@
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-brand-cream text-brand-deep-green antialiased;
+}
+
+a {
+  @apply transition-colors;
+}
+
+::selection {
+  @apply bg-brand-red text-brand-cream;
+}
+
+@layer components {
+  .site-shell {
+    @apply min-h-screen bg-brand-cream;
+  }
+
+  .page-section {
+    @apply px-6 pb-12 pt-12 md:px-10 lg:px-14;
+  }
+
+  .page-body {
+    @apply mx-auto max-w-6xl;
+  }
+
+  .content-card {
+    @apply rounded-r-md border-l-4 border-brand-green bg-white px-6 py-5 text-[1rem] leading-8 text-brand-deep-green shadow-sm;
+  }
+
+  .content-card strong {
+    @apply text-brand-mid-red;
+  }
+
+  .content-card a {
+    @apply font-semibold text-brand-green;
+  }
+
+  .story-copy {
+    @apply max-w-4xl text-lg leading-9 text-brand-brown;
+  }
+
+  .story-copy em {
+    @apply font-medium text-brand-deep-green;
+  }
+
+  .form-panel {
+    @apply rounded-lg border border-white/10 bg-brand-deep-green p-6 text-brand-cream md:p-8;
+  }
+
+  .field-label {
+    @apply mb-2 block text-sm font-bold tracking-tight text-brand-cream/60;
+  }
+
+  .field-control {
+    @apply w-full rounded-md border border-brand-cream/20 bg-white/10 px-4 py-3 text-sm text-brand-cream outline-none transition focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20;
+  }
+
+  .field-control::placeholder {
+    @apply text-brand-cream/50;
+  }
+
+  .field-control-light {
+    @apply w-full rounded-md border border-brand-deep-green/15 bg-white px-4 py-3 text-sm text-brand-deep-green outline-none transition focus:border-brand-green focus:ring-2 focus:ring-brand-green/15;
+  }
+
+  .field-control-light::placeholder {
+    @apply text-brand-charcoal/70;
+  }
+
+  select.field-control,
+  select.field-control-light {
+    @apply appearance-none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+  }
+
+  select.field-control {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23FDFCF0'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  select.field-control option {
+    background-color: #1D261D;
+    color: #FDFCF0;
+  }
+
+  select.field-control-light option {
+    background-color: #ffffff;
+    color: #013220;
+  }
+
+  .selection-group {
+    @apply flex flex-wrap gap-3;
+  }
+
+  .selection-pill {
+    @apply cursor-pointer rounded-full border border-brand-cream/20 bg-white/5 px-5 py-2.5 text-sm font-bold text-brand-cream transition-all hover:bg-white/10;
+  }
+
+  input:checked + .selection-pill {
+    @apply border-brand-yellow bg-brand-yellow text-brand-deep-green;
+  }
+
+  /* Light theme pills */
+  .selection-pill-light {
+    @apply cursor-pointer rounded-full border border-brand-deep-green/15 bg-white px-5 py-2.5 text-sm font-bold text-brand-deep-green transition-all hover:bg-brand-cream/50;
+  }
+
+  input:checked + .selection-pill-light {
+    @apply border-brand-green bg-brand-green text-brand-cream;
+  }
+
+  .cta-button {
+    @apply inline-flex items-center justify-center rounded-md bg-brand-red px-8 py-4 text-center text-base font-bold tracking-tight text-brand-cream transition hover:-translate-y-0.5 hover:bg-brand-deep-red;
+  }
+
+  .cta-button-green {
+    @apply bg-brand-green hover:bg-brand-deep-green;
+  }
+}
+
+@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: var(--font-sans);
+  }
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+  }
+  .dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
