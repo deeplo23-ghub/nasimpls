@@ -8,7 +8,6 @@ import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 import { CustomCursor } from "@/components/ui/custom-cursor";
-import { PageEntranceOverlay } from "@/components/ui/page-entrance-overlay";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -70,7 +69,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         className={`${roca.variable} font-sans bg-[#1D261D]`}
       >
         <CustomCursor />
-        <PageEntranceOverlay />
         {children}
       </body>
     </html>

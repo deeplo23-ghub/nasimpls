@@ -225,11 +225,7 @@ function TiltCard({ btn, isSmall = false, isExternal = false, icon: Icon, onTrig
   const cardClasses = `group relative block w-full rounded-[1.75rem] border-[3px] border-brand-deep-green ${btn.bg} shadow-[8px_8px_0_0_#1D261D] transition-all hover:shadow-[12px_12px_0_0_#1D261D] ${isSmall ? (Icon ? "p-3 px-4" : "p-4") : Icon ? "p-4 px-5" : "p-7"}`;
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (onTrigger) {
-      e.preventDefault();
-      const rect = e.currentTarget.getBoundingClientRect();
-      onTrigger(rect, btn.bg, btn.label, btn.href, isExternal, isSmall);
-    }
+    // Standard navigation
   };
 
   return (
@@ -283,17 +279,11 @@ const titleVariants = {
 
 export function LandingHero() {
   const router = useRouter();
-  const [transitionData, setTransitionData] = useState<any>(null);
-
-  const handleTrigger = (rect: DOMRect, bg: string, label: string, href: string, isExternal: boolean, isSmall: boolean) => {
-    setTransitionData({ rect, bg, label, href, isExternal, isSmall });
-  };
 
   const bgX = useSpring(0, { stiffness: 50, damping: 20 });
   const bgY = useSpring(0, { stiffness: 50, damping: 20 });
 
   const handlePageMouseMove = (e: React.MouseEvent) => {
-    if (transitionData) return;
     const xPct = (e.clientX / window.innerWidth - 0.5) * 20;
     const yPct = (e.clientY / window.innerHeight - 0.5) * 20;
     bgX.set(-xPct);
@@ -310,8 +300,7 @@ export function LandingHero() {
           cursor: none !important;
         }
       `}</style>
-      <PageTransition />
-      
+            
       {/* Background - fades in second (delay 0.4s) */}
       <motion.div 
         initial={{ opacity: 0 }}
@@ -369,8 +358,8 @@ export function LandingHero() {
         >
           {/* All Buttons Row */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full flex-wrap">
-            {mainButtons.map((btn) => <TiltCard key={btn.href} btn={btn} onTrigger={handleTrigger} />)}
-            {secondaryButtons.map((btn) => <TiltCard key={btn.href} btn={btn} isSmall onTrigger={handleTrigger} />)}
+            {mainButtons.map((btn) => <TiltCard key={btn.href} btn={btn} />)}
+            {secondaryButtons.map((btn) => <TiltCard key={btn.href} btn={btn} isSmall />)}
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full">
@@ -378,7 +367,6 @@ export function LandingHero() {
               isExternal
               isSmall
               icon={InstagramIcon}
-              onTrigger={handleTrigger}
               btn={{ 
                 label: "@nasi.mpls", 
                 href: siteConfig.social.instagram, 
@@ -391,162 +379,7 @@ export function LandingHero() {
         </motion.div>
       </div>
 
-      {transitionData && (
-        <ButtonTransitionOverlay 
-          data={transitionData}
-          onComplete={() => {
-            // Store transition data for the entrance animation on the destination page
-            sessionStorage.setItem("page-transition", JSON.stringify({
-              bg: transitionData.bg,
-              label: transitionData.label,
-              isSmall: transitionData.isSmall,
-            }));
-            if (transitionData.isExternal) {
-              window.open(transitionData.href, '_blank');
-              setTransitionData(null);
-            } else {
-              router.push(transitionData.href);
-            }
-          }}
-        />
-      )}
     </section>
   );
 }
 
-// Fullscreen Cartoon Button Transition Overlay
-function ButtonTransitionOverlay({ data, onComplete }: { data: any, onComplete: () => void }) {
-  const r = data.rect;
-  
-  // Calculate how much we need to scale to cover the entire viewport
-  const centerX = r.left + r.width / 2;
-  const centerY = r.top + r.height / 2;
-  const maxDistX = Math.max(centerX, window.innerWidth - centerX);
-  const maxDistY = Math.max(centerY, window.innerHeight - centerY);
-  const maxDist = Math.sqrt(maxDistX * maxDistX + maxDistY * maxDistY);
-  const scaleNeeded = (maxDist * 2.2) / Math.min(r.width, r.height);
-
-  return (
-    <>
-      {/* The Expanding Circle */}
-      <motion.div
-        className={`fixed z-[100000] border-[3px] border-brand-deep-green ${data.bg}`}
-        style={{
-          top: r.top,
-          left: r.left,
-          width: r.width,
-          height: r.height,
-          transformOrigin: "center center",
-        }}
-        initial={{
-          scale: 1,
-          borderRadius: "1.75rem",
-        }}
-        animate={{
-          scale: scaleNeeded,
-          borderRadius: "50%",
-          borderWidth: "0px",
-        }}
-        transition={{
-          duration: 1.0,
-          ease: (t: number) => Math.floor(t * 10) / 10
-        }}
-      />
-
-      {/* Dark torn outline wipe that leads slightly ahead */}
-      <motion.div
-        className="fixed inset-0 z-[100002]"
-        initial={{ clipPath: "inset(0 0 100% 0)" }}
-        animate={{ clipPath: "inset(0 0 -10% 0)" }}
-        transition={{
-          duration: 0.6,
-          delay: 0.5,
-          ease: (t: number) => Math.floor(t * 8) / 8
-        }}
-      >
-        <div className="absolute inset-0 bg-brand-deep-green" />
-        {/* Wavy bottom edge */}
-        <svg viewBox="0 0 1000 80" preserveAspectRatio="none" className="absolute left-0 right-0 bottom-0 w-full h-[60px] translate-y-[98%]">
-          <path d="M0,0 C150,60 350,-20 500,30 C650,80 850,-10 1000,20 L1000,80 L0,80 Z" fill="#1D261D" />
-        </svg>
-      </motion.div>
-
-      {/* The Moving Text */}
-      <motion.div
-        className="fixed z-[100003] font-serif font-black whitespace-nowrap pointer-events-none flex items-center justify-center"
-        initial={{
-          top: r.top + r.height / 2,
-          left: r.left + r.width / 2,
-          x: "-50%",
-          y: "-50%",
-          scale: 1,
-          color: "#1D261D",
-        }}
-        animate={{
-          top: "50%",
-          left: "50%",
-          x: "-50%",
-          y: "-50%",
-          scale: data.isSmall ? 2.5 : 2,
-          color: "#F2F2F2",
-        }}
-        transition={{
-          top: { type: "spring", stiffness: 80, damping: 18, mass: 1 },
-          left: { type: "spring", stiffness: 80, damping: 18, mass: 1 },
-          scale: { type: "spring", stiffness: 80, damping: 18, mass: 1 },
-          color: { duration: 0.3, delay: 0.6 },
-        }}
-        onAnimationComplete={() => onComplete()}
-      >
-        <div className={data.isSmall ? "text-xl md:text-2xl" : "text-3xl sm:text-5xl"}>
-          {data.label}
-        </div>
-      </motion.div>
-    </>
-  );
-}
-
-// Full Screen Cartoony Wipe Transition (Dynamic Wavy Layers)
-function PageTransition() {
-  const layers = [
-    { bg: "bg-[#1D261D]", fill: "#1D261D", z: 60, wave: "h-[20vh]" }, // Background green starts
-    { bg: "bg-[#2805F2]", fill: "#2805F2", z: 50, wave: "h-[40vh]" }, // Blue (massive wave)
-    { bg: "bg-[#155C28]", fill: "#155C28", z: 40, wave: "h-[15vh]" }, // Green (short wave)
-    { bg: "bg-[#F26905]", fill: "#F26905", z: 30, wave: "h-[30vh]" }, // Orange
-    { bg: "bg-[#F20505]", fill: "#F20505", z: 20, wave: "h-[25vh]" }, // Red
-    { bg: "bg-[#F2AE30]", fill: "#F2AE30", z: 10, wave: "h-[50vh]" }, // Yellow (huge sweeping wave)
-  ];
-
-  // A deeply curving, cartoony, hand-drawn wobbly path across 1000 units
-  const wavyPath = "M0,0 C200,100 300,-20 500,40 C700,100 800,-40 1000,20 L1000,-100 L0,-100 Z";
-
-  return (
-    <div className="pointer-events-none fixed inset-0 z-[999999] overflow-hidden">
-      {layers.map((layer, i) => (
-        <motion.div
-          key={i}
-          initial={{ y: "0vh" }}
-          animate={{ y: "-160vh" }}
-          transition={{
-            duration: 0.55, // Much faster sweep
-            // 8 discrete snaps to keep it low-FPS and cartoony
-            ease: (t: number) => Math.floor(t * 8) / 8,
-            delay: i * 0.1, // Tighter stagger for a rapid sequence
-          }}
-          className={`absolute left-0 right-0 top-0 h-[100vh] ${layer.bg}`}
-          style={{ zIndex: layer.z }}
-        >
-          {/* Cartoony Wavy Border trailing behind */}
-          <svg 
-            viewBox="0 0 1000 100" 
-            preserveAspectRatio="none" 
-            className={`absolute left-0 right-0 top-[100%] w-full ${layer.wave} -translate-y-[2px]`}
-          >
-            {/* Extended fill so the wave seamlessly connects to the div */}
-            <path d={wavyPath} fill={layer.fill} />
-          </svg>
-        </motion.div>
-      ))}
-    </div>
-  );
-}
