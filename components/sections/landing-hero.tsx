@@ -375,7 +375,9 @@ export function LandingHero() {
           {/* Secondary Buttons Row */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full">
             {secondaryButtons.map((btn) => <TiltCard key={btn.href} btn={btn} isSmall onTrigger={handleTrigger} />)}
-            
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full">
             <TiltCard 
               isExternal
               isSmall
