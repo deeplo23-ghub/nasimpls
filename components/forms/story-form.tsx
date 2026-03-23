@@ -3,6 +3,11 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
 import { netlifyForms } from "@/lib/constants";
 import { encodeNetlifyForm } from "@/lib/netlify-form";
 
@@ -50,98 +55,111 @@ export function StoryForm() {
       onSubmit={handleSubmit}
       data-netlify="true"
       netlify-honeypot="bot-field"
-      className="space-y-6"
+      className="max-w-2xl mx-auto space-y-6"
     >
       <input type="hidden" name="form-name" value={netlifyForms.story} />
       <input type="hidden" name="bot-field" />
-      <div className="grid gap-4 md:grid-cols-2">
-        <div>
-          <label
-            htmlFor="story-name"
-            className="mb-2 block text-sm font-bold text-brand-charcoal"
-          >
-            Your Name
-          </label>
-          <input id="story-name" name="name" className="field-control-light" placeholder="First name is fine!" />
+      
+      <div className="space-y-4">
+        {/* Identity Section */}
+        <div className="space-y-3">
+          <h3 className="text-center font-serif text-[0.85rem] font-black tracking-normal text-brand-green/50">
+            About You
+          </h3>
+          <div className="grid gap-3 md:grid-cols-2">
+            <div className="space-y-1.5">
+              <Label htmlFor="story-name" className="font-serif text-[1.05rem] font-bold text-brand-deep-green">
+                Your Name
+              </Label>
+              <Input id="story-name" name="name" placeholder="Name or a nickname..." className="h-10 border-brand-green/10 bg-brand-cream/20 focus-visible:border-brand-green" />
+            </div>
+            
+            <div className="space-y-1.5">
+              <Label htmlFor="story-origin" className="font-serif text-[1.05rem] font-bold text-brand-deep-green">
+                Where are you from?
+              </Label>
+              <Input id="story-origin" name="origin" placeholder="E.g. Jakarta, or grew up in MN" className="h-10 border-brand-green/10 bg-brand-cream/20 focus-visible:border-brand-green" />
+            </div>
+          </div>
         </div>
-        <div>
-          <label
-            htmlFor="story-origin"
-            className="mb-2 block text-sm font-bold text-brand-charcoal"
-          >
-            Where are you from?
-          </label>
-          <input id="story-origin" name="origin" className="field-control-light" placeholder="City, country" />
+
+        {/* Narrative Section */}
+        <div className="space-y-3 pt-2">
+          <h3 className="text-center font-serif text-[0.85rem] font-black tracking-normal text-brand-green/50">
+            The Narrative
+          </h3>
+          <div className="space-y-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="story-connection" className="font-serif text-[1.05rem] font-bold text-brand-deep-green">
+                Connection to Indo food
+              </Label>
+              <Input
+                id="story-connection"
+                name="connection"
+                placeholder="Indonesian, traveled there, or just a big fan?"
+                className="h-10 border-brand-green/10 bg-brand-cream/20 focus-visible:border-brand-green"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="story-body" className="font-serif text-[1.05rem] font-bold text-brand-green">
+                Tell us your story *
+              </Label>
+              <Textarea
+                id="story-body"
+                name="story"
+                required
+                className="min-h-32 border-brand-green/10 bg-brand-cream/20 focus-visible:border-brand-green text-sm"
+                placeholder="A memory of a meal, a person who cooked for you, or a taste that takes you home..."
+              />
+            </div>
+          </div>
         </div>
-        <div className="md:col-span-2">
-          <label
-            htmlFor="story-connection"
-            className="mb-2 block text-sm font-bold text-brand-charcoal"
-          >
-            Connection to Indonesian food
-          </label>
-          <input
-            id="story-connection"
-            name="connection"
-            className="field-control-light"
-            placeholder="Indonesian, grew up eating it, traveled there..."
-          />
-        </div>
-        <div className="md:col-span-2">
-          <label
-            htmlFor="story-body"
-            className="mb-2 block text-sm font-bold text-brand-charcoal"
-          >
-            Tell us your story *
-          </label>
-          <textarea
-            id="story-body"
-            name="story"
-            required
-            className="field-control-light min-h-36"
-            placeholder="A memory, a dish, a person who fed you..."
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="story-dish"
-            className="mb-2 block text-sm font-bold text-brand-charcoal"
-          >
-            Favorite Indonesian dish
-          </label>
-          <input id="story-dish" name="favorite_dish" className="field-control-light" />
-        </div>
-        <div>
-          <label className="mb-2 block text-sm font-bold text-brand-charcoal">
-            Can we share this?
-          </label>
-          <div className="selection-group">
-            <label className="flex">
-              <input type="radio" name="sharing_preference" value="Yes" className="peer hidden" />
-              <div className="selection-pill-light peer-checked:border-brand-green peer-checked:bg-brand-green peer-checked:text-brand-cream">
-                Yes!
-              </div>
-            </label>
-            <label className="flex">
-              <input type="radio" name="sharing_preference" value="Anonymous" className="peer hidden" />
-              <div className="selection-pill-light peer-checked:border-brand-green peer-checked:bg-brand-green peer-checked:text-brand-cream">
-                Anonymously
-              </div>
-            </label>
-            <label className="flex">
-              <input type="radio" name="sharing_preference" value="Private" className="peer hidden" />
-              <div className="selection-pill-light peer-checked:border-brand-green peer-checked:bg-brand-green peer-checked:text-brand-cream">
-                Just for you
-              </div>
-            </label>
+
+        {/* Preferences Section */}
+        <div className="space-y-3 pt-2">
+          <h3 className="text-center font-serif text-[0.85rem] font-black tracking-normal text-brand-green/50">
+            Final Details
+          </h3>
+          <div className="grid gap-x-6 gap-y-3 md:grid-cols-2">
+            <div className="space-y-1.5">
+              <Label htmlFor="story-dish" className="font-serif text-[1.05rem] font-bold text-brand-deep-green">
+                Favorite dish
+              </Label>
+              <Input id="story-dish" name="favorite_dish" placeholder="E.g. Nasi Goreng, Rendang..." className="h-10 border-brand-green/10 bg-brand-cream/20 focus-visible:border-brand-green" />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="font-serif text-[1.05rem] font-bold text-brand-deep-green">Can we share this?</Label>
+              <RadioGroup name="sharing_preference" className="flex flex-row gap-4">
+                <div className="flex items-center gap-2 group cursor-pointer">
+                  <RadioGroupItem value="Yes" id="share-yes" className="size-4 border-brand-green/20 data-[checked]:border-brand-green data-[checked]:bg-brand-green" />
+                  <Label htmlFor="share-yes" className="cursor-pointer font-sans text-[10px] font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Yes!</Label>
+                </div>
+                <div className="flex items-center gap-2 group cursor-pointer">
+                  <RadioGroupItem value="Anonymous" id="share-anon" className="size-4 border-brand-green/20 data-[checked]:border-brand-green data-[checked]:bg-brand-green" />
+                  <Label htmlFor="share-anon" className="cursor-pointer font-sans text-[10px] font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Anon</Label>
+                </div>
+                <div className="flex items-center gap-2 group cursor-pointer">
+                  <RadioGroupItem value="Private" id="share-private" className="size-4 border-brand-green/20 data-[checked]:border-brand-green data-[checked]:bg-brand-green" />
+                  <Label htmlFor="share-private" className="cursor-pointer font-sans text-[10px] font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Private</Label>
+                </div>
+              </RadioGroup>
+            </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-start gap-3">
-        <button type="submit" className="cta-button cta-button-green" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Send My Story"}
-        </button>
-        {error ? <p className="text-sm text-brand-mid-red">{error}</p> : null}
+
+      <div className="flex flex-col items-center gap-4 pt-2">
+        <Button 
+          type="submit" 
+          size="lg"
+          className="h-11 w-full md:w-auto px-10 text-[0.95rem] font-black bg-brand-green text-brand-cream hover:bg-brand-deep-green shadow-md transition-all hover:scale-[1.02]"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Sending..." : "Send My Story"}
+        </Button>
+        {error ? <p className="text-sm font-bold text-brand-mid-red">{error}</p> : null}
       </div>
     </form>
   );

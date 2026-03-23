@@ -35,11 +35,11 @@ export default function RantangPage() {
             </ContentCard>
           ))}
 
-          <div className="form-panel mt-8">
-            <h2 className="font-serif text-3xl font-black text-brand-yellow">
+          <div className="form-panel mt-5 max-w-2xl mx-auto">
+            <h2 className="font-serif text-3xl font-black text-brand-yellow text-center md:text-left">
               {rantangContent.form.title}
             </h2>
-            <p className="mt-2 max-w-2xl font-baskerville text-sm leading-7 text-brand-cream/65">
+            <p className="mt-1 font-baskerville text-sm leading-7 text-brand-cream/65 text-center md:text-left">
               {rantangContent.form.subtitle}
             </p>
             <div className="mt-5">

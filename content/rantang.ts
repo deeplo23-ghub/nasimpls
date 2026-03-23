@@ -18,27 +18,27 @@ export const rantangContent = {
     {
       question: "How does it work?",
       answer:
-        "Submit your order by Friday. We deliver on your scheduled weekend between 6–9PM. The menu is posted Monday on @nasi.mpls."
+        "Every Monday we drop the week's menu on @nasi.mpls. You have until Friday to lock in your order and pay. We spend the weekend in the kitchen and drop the goods right at your door between 6–9PM on Sunday."
     },
     {
-      question: "Can I cancel?",
+      question: "Change of Plans? (Cancellations)",
       answer:
-        "You have 24 hours to cancel free. After that, a 50% cancellation fee applies because ingredients are already being purchased."
+        "Life happens. You can cancel for free within 24 hours of ordering. After that, a 50% cancellation fee applies because we've already started sourcing your ingredients."
     },
     {
-      question: "I don't eat meat. Can you sub?",
+      question: "Dietary Restrictions & Substitutions",
       answer:
-        "Yes. We can swap any meat for a vegetarian option. Just note it in the form."
+        "Absolutely. Whether you're plant-based or have specific allergies, we've got you. Most meat dishes can be swapped for vegetarian alternatives—just list your requirements in the 'Dietary Restrictions' box above."
     },
     {
-      question: "How do I reheat?",
+      question: "Reheating Like a Pro",
       answer:
-        "Microwave 2–3 minutes with a damp paper towel on top. Crispier items like kering tempe or perkedel do better in a pan or air fryer at 350°F. Most dishes keep 3–4 days in the fridge."
+        "For a perfect meal, microwave for 2–3 minutes with a damp paper towel on top to keep the rice fluffy. If it's crispy (like Kering Tempe or Fritters), pop it in the air fryer at 350°F for 3 minutes to bring back that crunch."
     },
     {
-      question: "Where does the food come from?",
+      question: "Freshness & Sourcing",
       answer:
-        "We source from local farmers markets and Asian grocery stores whenever possible. Packaging is reusable, and returns get 10% off the next order."
+        "We're regulars at local farmers markets and Asian grocers. We source the best ingredients to ensure that authentic home-cooked flavor. Plus, return your clean packaging and get 10% off your next order."
     }
   ]
 } as const;

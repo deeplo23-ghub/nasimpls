@@ -36,16 +36,18 @@ export function SiteHeader() {
             className="block transition hover:opacity-90"
             aria-label="NASI home"
           >
-            <Image
-              src="/images/NASI_orange1.png"
-              alt="NASI"
-              width={220}
-              height={88}
-              priority
-              className={`h-auto transition-all duration-300 ${
-                isScrolled ? "w-[64px] md:w-[72px]" : "w-[118px] md:w-[132px]"
-              }`}
-            />
+              <Image
+                src="/images/NASI_orange1.png"
+                alt="NASI"
+                width={220}
+                height={88}
+                priority
+                className={`h-auto transition-all duration-300 ${
+                  isScrolled 
+                    ? "w-[64px] md:w-[72px]" 
+                    : "w-[118px] md:w-[132px] brightness-0 invert"
+                }`}
+              />
           </Link>
           <nav 
             className="flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-1 transition-all duration-300 md:w-auto md:justify-end md:gap-8"

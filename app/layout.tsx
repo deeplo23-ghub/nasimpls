@@ -7,6 +7,9 @@ import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
+import { CustomCursor } from "@/components/ui/custom-cursor";
+import { PageEntranceOverlay } from "@/components/ui/page-entrance-overlay";
+
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const roca = localFont({
@@ -64,8 +67,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body
-        className={`${roca.variable} font-sans`}
+        className={`${roca.variable} font-sans bg-[#1D261D]`}
       >
+        <CustomCursor />
+        <PageEntranceOverlay />
         {children}
       </body>
     </html>

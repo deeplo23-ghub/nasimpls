@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import { ReactNode, useState, useEffect } from "react";
+import { Bell } from "lucide-react";
 
 type SectionHeroProps = {
   label: string;
@@ -57,7 +58,8 @@ const subtitleVariants: Variants = {
 };
 
 export function SectionHero({ label, title, subtitle, announcement }: SectionHeroProps) {
-  const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [showContent, setShowContent] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -71,36 +73,91 @@ export function SectionHero({ label, title, subtitle, announcement }: SectionHer
 
   return (
     <>
-      {announcement && isAnnouncementVisible ? (
-        <div 
-          className={`fixed inset-x-0 z-40 mx-auto w-fit px-4 pt-4 transition-all duration-300 ${
-            isScrolled ? "top-[54px] md:top-[60px]" : "top-[96px] md:top-[116px]"
-          }`}
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="flex items-center gap-6 rounded-xl bg-brand-yellow border border-brand-brown/10 px-5 py-3 shadow-2xl shadow-brand-yellow/30 backdrop-blur-md"
-          >
-            <div className="flex items-center gap-3">
-              <span className="relative flex h-2.5 w-2.5 flex-none">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-red opacity-75"></span>
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand-red"></span>
-              </span>
-              <div className="text-[13px] font-bold leading-none tracking-tight text-brand-deep-green md:whitespace-nowrap md:text-sm">
-                {announcement}
-              </div>
-            </div>
-            <button
-              onClick={() => setIsAnnouncementVisible(false)}
-              className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-deep-green/10 text-brand-deep-green/60 transition-colors hover:bg-brand-deep-green/20 hover:text-brand-deep-green"
-              aria-label="Dismiss announcement"
+      <div className="fixed bottom-6 right-6 z-50">
+        <AnimatePresence>
+          {announcement && (
+            <motion.div
+              layout
+              initial={false}
+              animate={{ 
+                width: isExpanded ? "auto" : "56px",
+                height: "56px"
+              }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 400, 
+                damping: 30 
+              }}
+              onAnimationComplete={(definition: any) => {
+                if (isExpanded && (definition.width === "auto" || definition === "expanded")) {
+                  setShowContent(true);
+                }
+              }}
+              className={`group relative flex items-center bg-brand-yellow shadow-[0_20px_50px_rgba(0,0,0,0.2)] shadow-brand-yellow/30 ring-1 ring-brand-brown/10 backdrop-blur-xl overflow-hidden ${
+                isExpanded ? "rounded-3xl p-2" : "rounded-full justify-center cursor-pointer hover:bg-brand-yellow/90"
+              }`}
+              onClick={() => {
+                if (!isExpanded) {
+                  setIsExpanded(true);
+                }
+              }}
             >
-              <span className="text-xs">✕</span>
-            </button>
-          </motion.div>
-        </div>
-      ) : null}
+              {/* Bell Icon Box - always visible */}
+              <div 
+                className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl transition-all duration-300 ${
+                  isExpanded ? "bg-brand-deep-green/10 text-brand-deep-green ml-0" : "text-brand-deep-green"
+                }`}
+              >
+                <motion.div
+                  animate={{ 
+                    rotate: [0, -15, 15, -15, 15, 0],
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    repeat: Infinity,
+                    repeatDelay: 3,
+                    ease: "easeInOut"
+                  }}
+                  style={{ originY: 0 }}
+                >
+                  <Bell className="h-5 w-5 fill-brand-deep-green/10" />
+                </motion.div>
+              </div>
+              
+              <AnimatePresence mode="wait">
+                {isExpanded && showContent && (
+                  <motion.div 
+                    key="content"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex items-center"
+                  >
+                    <div className="min-w-[260px] max-w-[360px] pl-2 pr-10 text-brand-deep-green">
+                      <div className="text-[13px] font-bold leading-snug tracking-tight">
+                        {announcement}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsExpanded(false);
+                        setShowContent(false);
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full bg-brand-deep-green/5 text-brand-deep-green/40 transition-all hover:bg-brand-deep-green/10 hover:text-brand-deep-green"
+                      aria-label="Collapse notification"
+                    >
+                      <span className="text-xs font-bold">✕</span>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <section className="page-section overflow-hidden">
         <motion.div

@@ -32,7 +32,7 @@ export default function WarungPage() {
               so you do not miss it.
             </p>
             <div className="mt-5">
-              <Button href={warungContent.cta.href} variant="green" external>
+              <Button href={warungContent.cta.href} variant="green" target="_blank" rel="noopener noreferrer">
                 {warungContent.cta.label} →
               </Button>
             </div>

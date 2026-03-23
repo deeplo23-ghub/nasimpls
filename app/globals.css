@@ -1,19 +1,14 @@
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  @apply bg-brand-cream text-brand-deep-green antialiased;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  * {
+    cursor: none !important;
+  }
 }
 
 a {
@@ -38,7 +33,7 @@ a {
   }
 
   .content-card {
-    @apply rounded-r-md border-l-4 border-brand-green bg-white px-6 py-5 text-[1rem] leading-8 text-brand-deep-green shadow-sm;
+    @apply rounded-3xl border-l-4 border-brand-green bg-white px-6 py-5 text-[1rem] leading-8 text-brand-deep-green shadow-sm;
   }
 
   .content-card strong {
@@ -58,7 +53,7 @@ a {
   }
 
   .form-panel {
-    @apply rounded-lg border border-white/10 bg-brand-deep-green p-6 text-brand-cream md:p-8;
+    @apply rounded-[2rem] border border-white/10 bg-brand-deep-green p-6 text-brand-cream md:p-8 max-w-2xl mx-auto;
   }
 
   .field-label {
@@ -66,7 +61,7 @@ a {
   }
 
   .field-control {
-    @apply w-full rounded-md border border-brand-cream/20 bg-white/10 px-4 py-3 text-sm text-brand-cream outline-none transition focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20;
+    @apply w-full rounded-2xl border border-brand-cream/20 bg-white/10 px-4 py-3 text-sm text-brand-cream outline-none transition focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20;
   }
 
   .field-control::placeholder {
@@ -74,7 +69,7 @@ a {
   }
 
   .field-control-light {
-    @apply w-full rounded-md border border-brand-deep-green/15 bg-white px-4 py-3 text-sm text-brand-deep-green outline-none transition focus:border-brand-green focus:ring-2 focus:ring-brand-green/15;
+    @apply w-full rounded-2xl border border-brand-deep-green/15 bg-white px-4 py-3 text-sm text-brand-deep-green outline-none transition focus:border-brand-green focus:ring-2 focus:ring-brand-green/15;
   }
 
   .field-control-light::placeholder {
@@ -127,7 +122,7 @@ a {
   }
 
   .cta-button {
-    @apply inline-flex items-center justify-center rounded-md bg-brand-red px-8 py-4 text-center text-base font-bold tracking-tight text-brand-cream transition hover:-translate-y-0.5 hover:bg-brand-deep-red;
+    @apply inline-flex items-center justify-center rounded-full bg-brand-red px-8 py-4 text-center text-base font-bold tracking-tight text-brand-cream transition hover:-translate-y-0.5 hover:bg-brand-deep-red;
   }
 
   .cta-button-green {
@@ -136,84 +131,56 @@ a {
 }
 
 @layer base {
-  .theme {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
-  }
   :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    --background: 40 48% 93%;
+    --foreground: 120 14% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 120 14% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 120 14% 13%;
+    --primary: 0 96% 48%;
+    --primary-foreground: 40 48% 93%;
+    --secondary: 39 89% 57%;
+    --secondary-foreground: 120 14% 13%;
+    --muted: 40 48% 93%;
+    --muted-foreground: 0 0% 38%;
+    --accent: 39 89% 57%;
+    --accent-foreground: 120 14% 13%;
+    --destructive: 0 96% 48%;
+    --destructive-foreground: 40 48% 93%;
+    --border: 120 14% 13% / 0.1;
+    --input: 120 14% 13% / 0.15;
+    --ring: 137 63% 22%;
+    --radius: 1.5rem;
   }
   .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --background: 120 14% 13%;
+    --foreground: 40 48% 93%;
+    --card: 156 96% 10%;
+    --card-foreground: 40 48% 93%;
+    --popover: 156 96% 10%;
+    --popover-foreground: 40 48% 93%;
+    --primary: 0 96% 48%;
+    --primary-foreground: 40 48% 93%;
+    --secondary: 39 89% 57%;
+    --secondary-foreground: 120 14% 13%;
+    --muted: 120 14% 13%;
+    --muted-foreground: 30 33% 75%;
+    --accent: 39 89% 57%;
+    --accent-foreground: 120 14% 13%;
+    --destructive: 0 96% 48%;
+    --destructive-foreground: 40 48% 93%;
+    --border: 40 48% 93% / 0.1;
+    --input: 40 48% 93% / 0.15;
+    --ring: 39 89% 57%;
   }
   * {
-    @apply border-border outline-ring/50;
+    border-color: hsl(var(--border));
+    outline-color: hsla(137, 63%, 22%, 0.5);
   }
   body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    @apply antialiased;
   }
 }

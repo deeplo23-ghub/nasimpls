@@ -37,7 +37,7 @@ export default function BancakanPage() {
               <p className="max-w-2xl font-baskerville text-base leading-8 text-brand-brown">
                 {bancakanContent.eventNote}
               </p>
-              <Button href={bancakanContent.cta.href} external>
+              <Button href={bancakanContent.cta.href} target="_blank" rel="noopener noreferrer">
                 {bancakanContent.cta.label} →
               </Button>
             </div>
