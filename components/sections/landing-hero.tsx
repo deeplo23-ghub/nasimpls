@@ -241,7 +241,7 @@ function TiltCard({ btn, isSmall = false, isExternal = false, icon: Icon, onTrig
       style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className={`relative perspective-1000 ${isSmall ? "w-full md:w-56" : Icon ? "w-full md:w-auto md:min-w-[200px]" : "w-full md:w-72"} ${btn.rotate}`}
+      className={`relative perspective-1000 ${isSmall ? "w-full md:w-44" : Icon ? "w-full md:w-auto md:min-w-[200px]" : "w-full md:w-72"} ${btn.rotate}`}
     >
       {isExternal ? (
         <a href={btn.href} target="_blank" rel="noreferrer" onClick={handleClick} style={{ transform: "translateZ(50px)" }} className={cardClasses}>
@@ -367,13 +367,9 @@ export function LandingHero() {
           }}
           className="flex flex-col gap-6 md:gap-8 w-full items-center"
         >
-          {/* Main Buttons Row */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full">
+          {/* All Buttons Row */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full flex-wrap">
             {mainButtons.map((btn) => <TiltCard key={btn.href} btn={btn} onTrigger={handleTrigger} />)}
-          </div>
-
-          {/* Secondary Buttons Row */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full">
             {secondaryButtons.map((btn) => <TiltCard key={btn.href} btn={btn} isSmall onTrigger={handleTrigger} />)}
           </div>
 
