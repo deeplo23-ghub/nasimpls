@@ -1,7 +1,7 @@
-"use client"
-
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
+import Link from "next/link"
+import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -10,7 +10,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+        default: "bg-primary text-primary-foreground hover:bg-primary/80",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
@@ -20,6 +20,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        green: "bg-brand-green text-white hover:bg-brand-green/80",
       },
       size: {
         default:
@@ -42,19 +43,54 @@ const buttonVariants = cva(
   }
 )
 
-function Button({
-  className,
-  variant = "default",
-  size = "default",
-  ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
-  return (
-    <ButtonPrimitive
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  )
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+  href?: string;
+  target?: string;
+  rel?: string;
 }
+
+const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+  ({ className, variant, size, href, ...props }, ref) => {
+    const classes = cn(buttonVariants({ variant, size, className }));
+
+    if (href) {
+      const isExternal = href.startsWith('http') || props.target === '_blank';
+      if (isExternal) {
+        return (
+          <a
+            href={href}
+            className={classes}
+            ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+            target={props.target}
+            rel={props.rel}
+            {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+          >
+            {props.children}
+          </a>
+        );
+      }
+      return (
+        <Link
+          href={href}
+          className={classes}
+          ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+          {...(props as any)}
+        >
+          {props.children}
+        </Link>
+      );
+    }
+
+    return (
+      <ButtonPrimitive
+        data-slot="button"
+        className={classes}
+        ref={ref as React.ForwardedRef<HTMLButtonElement>}
+        {...(props as any)}
+      />
+    );
+  }
+)
+Button.displayName = "Button"
 
 export { Button, buttonVariants }
