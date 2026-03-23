@@ -46,17 +46,10 @@ const itemVariants = {
   }
 } as const;
 
-function SlotText({ text, active, className }: { text: string; active: boolean; className?: string }) {
+function SlotText({ text, className }: { text: string; active?: boolean; className?: string }) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
-      <motion.div
-        animate={{ y: active ? "-100%" : "0%" }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col items-center justify-center font-bold"
-      >
-        <span className="block w-full">{text}</span>
-        <span className="block absolute top-full left-0 w-full">{text}</span>
-      </motion.div>
+    <div className={className}>
+      <span className="block font-bold">{text}</span>
     </div>
   );
 }
@@ -82,16 +75,6 @@ export function LogoTilt() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const [colorPhase, setColorPhase] = useState(0);
-
-  useEffect(() => {
-    // Cycles exactly through the 8 specified colors continually
-    const timer = setInterval(() => {
-      setColorPhase(c => (c + 1) % 8);
-    }, 4000); // New sweep starts every 4 seconds
-    return () => clearInterval(timer);
-  }, []);
-
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
 
@@ -105,9 +88,6 @@ export function LogoTilt() {
     x.set(xPct);
     y.set(yPct);
   };
-
-  const baseColor = logoColors[colorPhase];
-  const sweepColor = logoColors[(colorPhase + 1) % 8];
 
   return (
     <motion.div
@@ -166,13 +146,12 @@ export function LogoTilt() {
           </div>
         </div>
 
-        {/* Graphics Wrapper: Restricts dynamic colors strictly to the visual part above the text (~15% spacing) */}
+        {/* Graphics Wrapper: Restricts visual part above the text (~15% spacing) to static Yellow */}
         <div className="absolute inset-0" style={{ clipPath: "inset(0 0 15% 0)" }}>
-          {/* Base Color layer masking the hex color into the shape of the logo */}
           <div
             className="absolute inset-0"
             style={{ 
-              backgroundColor: baseColor,
+              backgroundColor: "#F2AE30", // Static Brand Yellow
               WebkitMaskImage: 'url(/images/NASI_orange.png)',
               WebkitMaskSize: 'contain',
               WebkitMaskRepeat: 'no-repeat',
@@ -183,60 +162,6 @@ export function LogoTilt() {
               maskPosition: 'center'
             }}
           />
-
-          {/* Outline Sweeping Layer (Leads the sweep to create a dark torn border line) */}
-          <motion.div
-            key={`outline-${colorPhase}`}
-            initial={{ clipPath: tornOutlineStart }}
-            animate={{ clipPath: tornOutlineEnd }}
-            transition={{ 
-              duration: 1.2, 
-              ease: (t: number) => Math.floor(t * 15) / 15
-            }}
-            className="absolute inset-0 z-10"
-          >
-            <div
-              className="absolute inset-0 w-full h-full"
-              style={{ 
-                backgroundColor: "#1D261D", // Dark Green outline
-                WebkitMaskImage: 'url(/images/NASI_orange.png)',
-                WebkitMaskSize: 'contain',
-                WebkitMaskRepeat: 'no-repeat',
-                WebkitMaskPosition: 'center',
-                maskImage: 'url(/images/NASI_orange.png)',
-                maskSize: 'contain',
-                maskRepeat: 'no-repeat',
-                maskPosition: 'center'
-              }}
-            />
-          </motion.div>
-
-          {/* Main Color Sweeping Layer */}
-          <motion.div
-            key={colorPhase}
-            initial={{ clipPath: tornSweepStart }}
-            animate={{ clipPath: tornSweepEnd }}
-            transition={{ 
-              duration: 1.2, 
-              ease: (t: number) => Math.floor(t * 15) / 15 // Stop-motion sweep
-            }}
-            className="absolute inset-0 z-20"
-          >
-            <div
-              className="absolute inset-0 w-full h-full"
-              style={{ 
-                backgroundColor: sweepColor,
-                WebkitMaskImage: 'url(/images/NASI_orange.png)',
-                WebkitMaskSize: 'contain',
-                WebkitMaskRepeat: 'no-repeat',
-                WebkitMaskPosition: 'center',
-                maskImage: 'url(/images/NASI_orange.png)',
-                maskSize: 'contain',
-                maskRepeat: 'no-repeat',
-                maskPosition: 'center'
-              }}
-            />
-          </motion.div>
         </div>
       </div>
     </motion.div>
@@ -338,7 +263,7 @@ const mainButtons = [
 ];
 
 const secondaryButtons = [
-  { label: "Our Story", href: "/story", bg: "bg-brand-tan", rotate: "rotate-2" },
+  { label: "Our Story", href: "/story", bg: "bg-brand-cream", rotate: "rotate-2" },
   { label: "Contact", href: "/contact", bg: "bg-brand-cream", rotate: "-rotate-1" }
 ];
 
