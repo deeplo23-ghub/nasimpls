@@ -1190,7 +1190,7 @@ function ArchiveGalleryModal({
             
             <div 
               ref={scrollRef}
-              className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-8 pb-12 pt-0 md:pt-0 custom-scrollbar overscroll-contain relative"
+              className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-8 pt-0 md:pt-0 custom-scrollbar overscroll-contain relative"
               onWheel={(e) => e.stopPropagation()}
               data-lenis-prevent
             >
