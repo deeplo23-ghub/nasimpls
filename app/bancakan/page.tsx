@@ -1211,7 +1211,7 @@ function ArchiveGalleryModal({
                         x: { type: "spring", stiffness: 450, damping: 45, mass: 1 },
                         opacity: { duration: 0.25 }
                       }}
-                      layout="position"
+                      layout
                       className={`grid gap-4 relative ${
                         cols === 3 
                           ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" 
@@ -1223,7 +1223,7 @@ function ArchiveGalleryModal({
                       {items.map((item, i) => (
                         <motion.div 
                           key={`${item.type}-${item.id}`}
-                          layout="position"
+                          layout
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ 
