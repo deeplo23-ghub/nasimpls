@@ -1001,6 +1001,12 @@ function ArchiveGalleryModal({
     }
   }, [activeTab]);
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [activeTab]);
+
   const nextMedia = useCallback(() => {
     if (selectedMediaIndex === null) return;
     setSelectedMediaIndex((selectedMediaIndex + 1) % items.length);
@@ -1194,16 +1200,17 @@ function ArchiveGalleryModal({
                       key={activeTab}
                       custom={direction}
                       variants={{
-                        enter: (d: number) => ({ x: d > 0 ? 60 : -60, opacity: 0 }),
-                        center: { x: 0, opacity: 1 },
-                        exit: (d: number) => ({ x: d > 0 ? -60 : 60, opacity: 0 }),
+                        enter: (d: number) => ({ x: d > 0 ? 100 : -100, opacity: 0, filter: 'blur(4px)' }),
+                        center: { x: 0, opacity: 1, filter: 'blur(0px)' },
+                        exit: (d: number) => ({ x: d > 0 ? -100 : 100, opacity: 0, filter: 'blur(4px)' }),
                       }}
                       initial="enter"
                       animate="center"
                       exit="exit"
                       transition={{ 
                         x: { type: "spring", stiffness: 450, damping: 45, mass: 1 },
-                        opacity: { duration: 0.25 }
+                        opacity: { duration: 0.25 },
+                        filter: { duration: 0.2 }
                       }}
                       layout="position"
                       className={`grid gap-4 relative ${
