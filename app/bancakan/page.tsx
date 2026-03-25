@@ -1044,11 +1044,7 @@ function ArchiveGalleryModal({
         wrapper: scrollRef.current,
         content: scrollRef.current.firstElementChild as HTMLElement,
         duration: 1.2,
-        lerp: 0.15,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        syncTouch: true,
-        autoResize: true,
-        infinite: false,
       });
 
       let rafId: number;
@@ -1194,7 +1190,7 @@ function ArchiveGalleryModal({
             
             <div 
               ref={scrollRef}
-              className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-8 pb-12 pt-0 md:pt-0 custom-scrollbar relative"
+              className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-8 pb-12 pt-0 md:pt-0 relative"
               data-lenis-prevent
             >
               <div>
