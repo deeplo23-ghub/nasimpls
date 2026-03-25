@@ -1060,7 +1060,7 @@ function ArchiveGalleryModal({
         document.body.style.overflow = '';
       };
     }
-  }, [volume, activeTab, cols]);
+  }, [volume, activeTab, cols, items.length]);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
