@@ -1200,17 +1200,16 @@ function ArchiveGalleryModal({
                       key={activeTab}
                       custom={direction}
                       variants={{
-                        enter: (d: number) => ({ x: d > 0 ? 100 : -100, opacity: 0, filter: 'blur(4px)' }),
-                        center: { x: 0, opacity: 1, filter: 'blur(0px)' },
-                        exit: (d: number) => ({ x: d > 0 ? -100 : 100, opacity: 0, filter: 'blur(4px)' }),
+                        enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
+                        center: { x: 0, opacity: 1 },
+                        exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
                       }}
                       initial="enter"
                       animate="center"
                       exit="exit"
                       transition={{ 
                         x: { type: "spring", stiffness: 450, damping: 45, mass: 1 },
-                        opacity: { duration: 0.25 },
-                        filter: { duration: 0.2 }
+                        opacity: { duration: 0.25 }
                       }}
                       layout="position"
                       className={`grid gap-4 relative ${
