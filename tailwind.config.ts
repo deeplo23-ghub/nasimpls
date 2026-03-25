@@ -13,6 +13,12 @@ const config: Config = {
         serif: ["var(--font-roca)", "serif"],
         baskerville: ["var(--font-roca)", "serif"]
       },
+      fontSize: {
+        xs: ["1.25rem", { lineHeight: "1.5rem" }],
+        sm: ["1.25rem", { lineHeight: "1.5rem" }],
+        base: ["1.25rem", { lineHeight: "1.6rem" }],
+        lg: ["1.25rem", { lineHeight: "1.75rem" }],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

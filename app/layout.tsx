@@ -8,6 +8,7 @@ import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 import { CustomCursor } from "@/components/ui/custom-cursor";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -64,10 +65,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
-      <body
-        className={`${roca.variable} font-sans bg-[#1D261D]`}
-      >
+    <html lang="en" suppressHydrationWarning className={cn(roca.variable, geist.variable)}>
+      <body className="antialiased min-h-screen bg-brand-cream overflow-x-hidden">
+        <SmoothScroll />
         <CustomCursor />
         {children}
       </body>

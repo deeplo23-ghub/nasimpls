@@ -63,7 +63,7 @@ export function StoryForm() {
       <div className="space-y-4">
         {/* Identity Section */}
         <div className="space-y-3">
-          <h3 className="text-center font-serif text-[0.85rem] font-black tracking-normal text-brand-green/50">
+          <h3 className="text-center font-serif text-xl font-black tracking-normal text-brand-green/50">
             About You
           </h3>
           <div className="grid gap-3 md:grid-cols-2">
@@ -85,7 +85,7 @@ export function StoryForm() {
 
         {/* Narrative Section */}
         <div className="space-y-3 pt-2">
-          <h3 className="text-center font-serif text-[0.85rem] font-black tracking-normal text-brand-green/50">
+          <h3 className="text-center font-serif text-xl font-black tracking-normal text-brand-green/50">
             The Narrative
           </h3>
           <div className="space-y-3">
@@ -102,7 +102,7 @@ export function StoryForm() {
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="story-body" className="font-serif text-[1.05rem] font-bold text-brand-green">
+              <Label htmlFor="story-body" className="font-serif text-xl font-bold text-brand-green">
                 Tell us your story *
               </Label>
               <Textarea
@@ -118,7 +118,7 @@ export function StoryForm() {
 
         {/* Preferences Section */}
         <div className="space-y-3 pt-2">
-          <h3 className="text-center font-serif text-[0.85rem] font-black tracking-normal text-brand-green/50">
+          <h3 className="text-center font-serif text-xl font-black tracking-normal text-brand-green/50">
             Final Details
           </h3>
           <div className="grid gap-x-6 gap-y-3 md:grid-cols-2">
@@ -130,19 +130,19 @@ export function StoryForm() {
             </div>
 
             <div className="space-y-2">
-              <Label className="font-serif text-[1.05rem] font-bold text-brand-deep-green">Can we share this?</Label>
+              <Label className="font-serif text-xl font-bold text-brand-deep-green">Can we share this?</Label>
               <RadioGroup name="sharing_preference" className="flex flex-row gap-4">
                 <div className="flex items-center gap-2 group cursor-pointer">
                   <RadioGroupItem value="Yes" id="share-yes" className="size-4 border-brand-green/20 data-[checked]:border-brand-green data-[checked]:bg-brand-green" />
-                  <Label htmlFor="share-yes" className="cursor-pointer font-sans text-[10px] font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Yes!</Label>
+                  <Label htmlFor="share-yes" className="cursor-pointer font-sans text-xl font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Yes!</Label>
                 </div>
                 <div className="flex items-center gap-2 group cursor-pointer">
                   <RadioGroupItem value="Anonymous" id="share-anon" className="size-4 border-brand-green/20 data-[checked]:border-brand-green data-[checked]:bg-brand-green" />
-                  <Label htmlFor="share-anon" className="cursor-pointer font-sans text-[10px] font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Anon</Label>
+                  <Label htmlFor="share-anon" className="cursor-pointer font-sans text-xl font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Anon</Label>
                 </div>
                 <div className="flex items-center gap-2 group cursor-pointer">
                   <RadioGroupItem value="Private" id="share-private" className="size-4 border-brand-green/20 data-[checked]:border-brand-green data-[checked]:bg-brand-green" />
-                  <Label htmlFor="share-private" className="cursor-pointer font-sans text-[10px] font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Private</Label>
+                  <Label htmlFor="share-private" className="cursor-pointer font-sans text-xl font-semibold text-brand-deep-green/70 transition group-hover:text-brand-green">Private</Label>
                 </div>
               </RadioGroup>
             </div>
@@ -154,7 +154,7 @@ export function StoryForm() {
         <Button 
           type="submit" 
           size="lg"
-          className="h-11 w-full md:w-auto px-10 text-[0.95rem] font-black bg-brand-green text-brand-cream hover:bg-brand-deep-green shadow-md transition-all hover:scale-[1.02]"
+          className="h-11 w-full md:w-auto px-10 text-xl font-black bg-brand-green text-brand-cream hover:bg-brand-deep-green shadow-md transition-all hover:scale-[1.02]"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Sending..." : "Send My Story"}

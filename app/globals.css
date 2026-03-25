@@ -25,15 +25,15 @@ a {
   }
 
   .page-section {
-    @apply px-6 pb-12 pt-12 md:px-10 lg:px-14;
+    @apply px-6 pb-12 pt-8 md:px-10 xl:px-[190px];
   }
 
   .page-body {
-    @apply mx-auto max-w-6xl;
+    @apply mx-auto max-w-[1600px];
   }
 
   .content-card {
-    @apply rounded-3xl border-l-4 border-brand-green bg-white px-6 py-5 text-[1rem] leading-8 text-brand-deep-green shadow-sm;
+    @apply rounded-3xl border-l-4 border-brand-green bg-white px-6 py-5 text-xl leading-8 text-brand-deep-green shadow-sm;
   }
 
   .content-card strong {
@@ -177,10 +177,17 @@ a {
   * {
     border-color: hsl(var(--border));
     outline-color: hsla(137, 63%, 22%, 0.5);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  *::-webkit-scrollbar {
+    display: none;
   }
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     @apply antialiased;
   }
+
 }

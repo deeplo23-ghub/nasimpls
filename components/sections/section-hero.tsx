@@ -135,7 +135,7 @@ export function SectionHero({ label, title, subtitle, announcement }: SectionHer
                     className="flex items-center"
                   >
                     <div className="min-w-[260px] max-w-[360px] pl-2 pr-10 text-brand-deep-green">
-                      <div className="text-[13px] font-bold leading-snug tracking-tight">
+                      <div className="text-xl font-bold leading-snug tracking-tight">
                         {announcement}
                       </div>
                     </div>
@@ -159,7 +159,7 @@ export function SectionHero({ label, title, subtitle, announcement }: SectionHer
         </AnimatePresence>
       </div>
 
-      <section className="page-section overflow-hidden">
+      <section className="page-section pb-8 overflow-hidden">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -168,49 +168,60 @@ export function SectionHero({ label, title, subtitle, announcement }: SectionHer
         >
           <motion.div
             variants={labelVariants}
-            className="mb-4 flex items-center gap-3 text-[14px] font-bold text-brand-red"
+            className="mb-4 flex items-center text-xl md:text-2xl font-black tracking-wide text-brand-red"
           >
-            <span className="h-[1px] w-6 bg-brand-red/40" aria-hidden="true" />
             {label}
           </motion.div>
 
-          <div className="relative inline-block overflow-visible">
-            {/* Cartoonish Wavy/Jagged Underline - Now placed BEHIND the title and shifted down slightly */}
-            <div className="absolute -bottom-2 left-0 z-0 w-full md:-bottom-3 lg:-bottom-4">
-              <svg 
-                viewBox="0 0 400 20" 
-                preserveAspectRatio="none" 
-                className="h-3 w-full overflow-visible md:h-4 lg:h-6"
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
+            <div className="relative inline-block overflow-visible shrink-0">
+              {/* Cartoonish Wavy/Jagged Underline - Now placed BEHIND the title and shifted down slightly */}
+              <div className="absolute -bottom-2 left-0 z-0 w-full md:-bottom-3 lg:-bottom-4">
+                <svg 
+                  viewBox="0 0 400 20" 
+                  preserveAspectRatio="none" 
+                  className="h-3 w-full overflow-visible md:h-4 lg:h-6"
+                >
+                  <defs>
+                    <linearGradient id="underline-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#f20505" />
+                      <stop offset="50%" stopColor="#a60303" />
+                      <stop offset="100%" stopColor="#620202" />
+                    </linearGradient>
+                  </defs>
+                  <motion.path
+                    variants={underlineVariants}
+                    d="M0,10 C40,0 60,20 100,10 C140,0 160,20 200,10 C240,0 260,20 300,10 C340,0 360,20 400,10"
+                    fill="none"
+                    stroke="url(#underline-gradient)"
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className=""
+                  />
+                </svg>
+              </div>
+
+              <motion.h1
+                variants={titleVariants}
+                className="relative z-10 font-serif text-5xl font-black leading-[1.05] tracking-tight text-brand-deep-green md:text-7xl lg:text-8xl"
               >
-                <motion.path
-                  variants={underlineVariants}
-                  d="M0,10 C40,0 60,20 100,10 C140,0 160,20 200,10 C240,0 260,20 300,10 C340,0 360,20 400,10"
-                  fill="none"
-                  stroke="#F20505"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className=""
-                />
-              </svg>
+                {title}
+              </motion.h1>
             </div>
 
-            <motion.h1
-              variants={titleVariants}
-              className="relative z-10 max-w-4xl font-serif text-5xl font-black leading-[1.05] tracking-tight text-brand-deep-green md:text-7xl lg:text-8xl"
-            >
-              {title}
-            </motion.h1>
+            {subtitle ? (
+              <div className="flex items-center gap-8 flex-1 mt-6 lg:mt-0">
+                <div className="hidden lg:block w-[1px] h-12 bg-brand-deep-green/10" />
+                <motion.p
+                  variants={subtitleVariants}
+                  className="font-baskerville text-xl leading-relaxed text-brand-deep-green/80 lg:text-2xl italic tracking-tight"
+                >
+                  {subtitle}
+                </motion.p>
+              </div>
+            ) : null}
           </div>
-
-          {subtitle ? (
-            <motion.p
-              variants={subtitleVariants}
-              className="mt-4 max-w-3xl whitespace-pre-line font-baskerville text-lg leading-relaxed text-brand-brown/90 md:mt-6 md:text-xl lg:text-2xl"
-            >
-              {subtitle}
-            </motion.p>
-          ) : null}
         </motion.div>
       </section>
     </>

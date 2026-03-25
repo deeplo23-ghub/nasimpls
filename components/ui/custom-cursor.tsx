@@ -1,19 +1,40 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring, useVelocity, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 export function CustomCursor() {
   const [cursorType, setCursorType] = useState<"default" | "pointer" | "text">("default");
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [hasMoved, setHasMoved] = useState(false);
   const [rippleFrame, setRippleFrame] = useState(-1);
   const [burstColor, setBurstColor] = useState("#F2AE30");
   const [burstLines, setBurstLines] = useState<{ angle: number; lenMul: number; sw: number; wobble: number }[]>([]);
   const clickCountRef = useRef(0);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // Drag lag physics
+  const velX = useVelocity(mouseX);
   
+  // Subtle rotation based on horizontal velocity to simulate drag
+  // Tip is anchored at 0,0, tail lags behind
+  const rotation = useTransform(velX, [-1500, 1500], [20, -20]);
+
+  const springConfig = { damping: 25, stiffness: 350, mass: 0.5 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+  const smoothRotation = useSpring(rotation, { damping: 30, stiffness: 200 });
+  const pointerOffset = useSpring(0, { damping: 30, stiffness: 200 });
+  
+  // Combine physics lag with the pointer-mode rotation offset
+  const cursorRotation = useTransform(
+    [smoothRotation, pointerOffset],
+    ([rot, off]) => (rot as number) + (off as number)
+  );
+
   // Primary + Tertiary palette cycle
-  const burstColors = ["#F20505", "#155C28", "#F2AE30", "#2805F2", "#F26905"];
+  const burstColors = ["#F2AE30", "#F26905"];
 
   const generateBurstLines = () => {
     const count = 6 + Math.floor(Math.random() * 4); // 6-9 lines
@@ -25,14 +46,18 @@ export function CustomCursor() {
     }));
   };
 
-  const springConfig = { damping: 30, stiffness: 450, mass: 0.4 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
+  useEffect(() => {
+    pointerOffset.set(cursorType === "pointer" ? 30 : 0);
+  }, [cursorType, pointerOffset]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
+
+      if (!hasMoved) {
+        setTimeout(() => setHasMoved(true), 80);
+      }
 
       const target = e.target as HTMLElement;
       if (!target) return;
@@ -48,9 +73,14 @@ export function CustomCursor() {
     };
 
     const handleMouseDown = (e: MouseEvent) => {
+      setIsMouseDown(true);
       const target = e.target as HTMLElement;
       if (!target) return;
-      if (target.closest('a') || target.closest('button')) return;
+
+      const cursor = window.getComputedStyle(target).cursor;
+      if (cursor === "pointer" || target.closest('a') || target.closest('button')) {
+        setCursorType("pointer");
+      }
 
       // Cycle color + randomize lines on each click
       setBurstColor(burstColors[clickCountRef.current % burstColors.length]);
@@ -64,11 +94,17 @@ export function CustomCursor() {
       });
     };
 
+    const handleMouseUp = () => {
+      setIsMouseDown(false);
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [mouseX, mouseY]);
 
@@ -82,17 +118,23 @@ export function CustomCursor() {
       style={{
         x: smoothX,
         y: smoothY,
+        rotate: cursorRotation,
+        transformOrigin: "0% 0%",
+      }}
+      animate={{ 
+        opacity: hasMoved ? 1 : 0 
+      }}
+      transition={{ 
+        opacity: { duration: 1.2, ease: "easeOut" } 
       }}
     >
       <motion.svg 
         width="32" height="32" viewBox="0 0 32 32" fill="none" 
         className="overflow-visible drop-shadow-[2px_4px_8px_rgba(0,0,0,0.4)]"
         animate={{ 
-          rotate: cursorType === "pointer" ? 30 : 0,
-          scale: cursorType === "pointer" ? 1.15 : 1,
+          scale: isMouseDown ? 0.9 : (cursorType === "pointer" ? 1.15 : 1),
         }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        style={{ transformOrigin: "0 0" }}
       >
         {/* Cartoony Hand-Drawn Burst Lines at the tip (0,0) */}
         {rippleFrame >= 0 && burstLines.length > 0 && (
@@ -152,7 +194,7 @@ export function CustomCursor() {
             />
             <motion.path 
               d="M0 0 L6 26 L12 16 L24 16 L0 0" 
-              animate={{ fill: rippleFrame >= 0 ? burstColor : cursorType === "pointer" ? "#F26905" : "#F2F2F2" }}
+              animate={{ fill: rippleFrame >= 0 ? burstColor : "#F2F2F2" }}
               transition={{ duration: 0.2 }}
               stroke="none"
             />

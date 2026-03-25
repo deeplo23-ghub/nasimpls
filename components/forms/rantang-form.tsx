@@ -185,12 +185,12 @@ export function RantangForm() {
       
       {/* Contact Info Section */}
       <div className="group/card bg-white/[0.03] border border-white/10 rounded-3xl p-4 shadow-sm space-y-2.5 transition-all duration-300 hover:bg-white/[0.04] hover:border-white/20">
-        <h3 className="font-serif text-[1.05rem] font-bold text-brand-yellow flex items-center gap-2">
+        <h3 className="font-serif text-xl font-bold text-brand-yellow flex items-center gap-2">
           Contact Details
         </h3>
         <div className="grid gap-3 md:grid-cols-2">
           <div className="space-y-1.5">
-            <Label htmlFor="rantang-name" className="font-serif text-[1.05rem] font-bold text-brand-cream/90">
+            <Label htmlFor="rantang-name" className="font-serif text-xl font-bold text-brand-cream/90">
               Full Name
             </Label>
             <Input id="rantang-name" name="full_name" required placeholder="What should we call you?" className="h-10 border-white/10 bg-white/5 focus-visible:border-brand-yellow rounded-2xl" />
@@ -248,10 +248,10 @@ export function RantangForm() {
                         setAddressSuggestions([]);
                       }}
                     >
-                      <div className="text-[0.85rem] font-bold text-brand-cream/90">
+                      <div className="text-xl font-bold text-brand-cream/90">
                         {suggestion.address.house_number ? `${suggestion.address.house_number} ` : ""}{suggestion.address.road || suggestion.display_name.split(",")[0]}
                       </div>
-                      <div className="text-[0.7rem] text-brand-cream/40 truncate">
+                      <div className="text-xl text-brand-cream/40 truncate">
                         {suggestion.display_name}
                       </div>
                     </button>
@@ -260,7 +260,7 @@ export function RantangForm() {
               )}
             </div>
             
-            <div className="flex items-center gap-1.5 text-[0.75rem] font-black text-brand-yellow/50 px-1 mt-1 transition-colors group-hover/card:text-brand-yellow/70">
+            <div className="flex items-center gap-1.5 text-xl font-black text-brand-yellow/50 px-1 mt-1 transition-colors group-hover/card:text-brand-yellow/70">
               <MapPin className="h-3 w-3" />
               Only delivering within Minneapolis
             </div>
@@ -270,12 +270,12 @@ export function RantangForm() {
 
       {/* Order Details Section */}
       <div className="group/card bg-white/[0.03] border border-white/10 rounded-3xl p-4 shadow-sm space-y-2.5 transition-all duration-300 hover:bg-white/[0.04] hover:border-white/20">
-        <h3 className="font-serif text-[1.05rem] font-bold text-brand-yellow flex items-center gap-2">
+        <h3 className="font-serif text-xl font-bold text-brand-yellow flex items-center gap-2">
           The Order
         </h3>
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <Label htmlFor="rantang-order" className="font-serif text-[1.05rem] font-bold text-brand-cream/90">
+            <Label htmlFor="rantang-order" className="font-serif text-xl font-bold text-brand-cream/90">
               Food Order
             </Label>
             <div className="space-y-2">
@@ -300,7 +300,7 @@ export function RantangForm() {
                     >
                       <Minus className="h-3 w-3" />
                     </Button>
-                    <span className="w-8 text-center text-[0.85rem] font-bold text-brand-yellow">{item.quantity}</span>
+                    <span className="w-8 text-center text-xl font-bold text-brand-yellow">{item.quantity}</span>
                     <Button
                       type="button"
                       variant="ghost"
@@ -328,7 +328,7 @@ export function RantangForm() {
               <Button
                 type="button"
                 variant="ghost"
-                className="w-full justify-start text-brand-yellow/60 hover:text-brand-yellow hover:bg-brand-yellow/5 h-10 font-bold text-[0.8rem] border border-dashed border-white/20 mt-1 rounded-full"
+                className="w-full justify-start text-brand-yellow/60 hover:text-brand-yellow hover:bg-brand-yellow/5 h-10 font-bold text-xl border border-dashed border-white/20 mt-1 rounded-full"
                 onClick={addOrderItem}
               >
                 <Plus className="mr-2 h-4 w-4" />
@@ -339,7 +339,7 @@ export function RantangForm() {
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="rantang-dietary" className="font-serif text-[1.05rem] font-bold text-brand-cream/90">
+            <Label htmlFor="rantang-dietary" className="font-serif text-xl font-bold text-brand-cream/90">
               Dietary Restrictions
             </Label>
             <div className="space-y-3">
@@ -348,7 +348,7 @@ export function RantangForm() {
                 {dietaryValue.map(tag => (
                   <span 
                     key={tag} 
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-yellow text-brand-deep-green text-[0.75rem] font-black animate-in zoom-in-95 duration-200"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-yellow text-brand-deep-green text-xl font-black animate-in zoom-in-95 duration-200"
                   >
                     {tag}
                     <button 
@@ -363,7 +363,7 @@ export function RantangForm() {
                 <input
                   type="text"
                   placeholder={dietaryValue.length === 0 ? "Vegetarian? No peanuts? Type to add..." : "Add another..."}
-                  className="flex-1 bg-transparent border-none outline-none text-[0.85rem] text-brand-cream placeholder:text-brand-cream/30 min-w-[120px]"
+                  className="flex-1 bg-transparent border-none outline-none text-xl text-brand-cream placeholder:text-brand-cream/30 min-w-[120px]"
                   value={customDietary}
                   onChange={(e) => setCustomDietary(e.target.value)}
                   onKeyDown={addCustomRestriction}
@@ -379,7 +379,7 @@ export function RantangForm() {
                       key={tag}
                       type="button"
                       onClick={() => toggleRestriction(tag)}
-                      className={`flex items-center justify-between px-3 py-1.5 rounded-full text-[0.75rem] font-bold border transition-all ${
+                      className={`flex items-center justify-between px-3 py-1.5 rounded-full text-xl font-bold border transition-all ${
                         isSelected 
                           ? "bg-brand-yellow/10 border-brand-yellow/50 text-brand-yellow shadow-[0_0_15px_rgba(242,174,48,0.1)]" 
                           : "bg-white/5 border-white/5 text-brand-cream/40 hover:bg-white/10 hover:text-brand-cream/60"
@@ -400,13 +400,13 @@ export function RantangForm() {
 
       {/* Payment Section */}
       <div className="group/card bg-white/[0.03] border border-white/10 rounded-3xl p-4 shadow-sm space-y-3 transition-all duration-300 hover:bg-white/[0.04] hover:border-white/20">
-        <h3 className="font-serif text-[1.05rem] font-bold text-brand-yellow flex items-center gap-2">
+        <h3 className="font-serif text-xl font-bold text-brand-yellow flex items-center gap-2">
           Payment
         </h3>
         
         <div className="space-y-3">
           <div className="space-y-2">
-            <Label className="font-serif text-[1.05rem] font-bold text-brand-cream/90">Select Method</Label>
+            <Label className="font-serif text-xl font-bold text-brand-cream/90">Select Method</Label>
             <RadioGroup name="payment_method" required className="grid grid-cols-2 gap-3">
               <div className="relative">
                 <RadioGroupItem value="Venmo" id="venmo" className="peer absolute opacity-0" />
@@ -415,7 +415,7 @@ export function RantangForm() {
                   className="flex cursor-pointer items-center justify-center gap-3 rounded-3xl border border-white/10 bg-white/5 py-2.5 px-4 transition-all hover:bg-white/10 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-yellow/50 peer-data-[checked]:border-brand-yellow peer-data-[checked]:bg-brand-yellow peer-data-[checked]:text-brand-deep-green"
                 >
                   <Image src="/images/venmo.png" alt="" width={18} height={18} className="pointer-events-none h-4.5 w-auto object-contain brightness-110 peer-data-[checked]:brightness-0" />
-                  <span className="pointer-events-none text-[0.85rem] font-black">Venmo</span>
+                  <span className="pointer-events-none text-xl font-black">Venmo</span>
                 </Label>
               </div>
               <div className="relative">
@@ -425,31 +425,31 @@ export function RantangForm() {
                   className="flex cursor-pointer items-center justify-center gap-3 rounded-3xl border border-white/10 bg-white/5 py-2.5 px-4 transition-all hover:bg-white/10 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-yellow/50 peer-data-[checked]:border-brand-yellow peer-data-[checked]:bg-brand-yellow peer-data-[checked]:text-brand-deep-green"
                 >
                   <Image src="/images/zelle.png" alt="" width={18} height={18} className="pointer-events-none h-4.5 w-auto object-contain peer-data-[checked]:brightness-0" />
-                  <span className="pointer-events-none text-[0.85rem] font-black">Zelle</span>
+                  <span className="pointer-events-none text-xl font-black">Zelle</span>
                 </Label>
               </div>
             </RadioGroup>
-            <p className="text-[0.75rem] italic text-brand-cream/40 px-1">Please send payment receipt to <a href="https://instagram.com/nasi.mpls" target="_blank" rel="noreferrer" className="text-brand-yellow font-bold hover:underline">@nasi.mpls</a> before or after submitting.</p>
+            <p className="text-xl italic text-brand-cream/40 px-1">Please send payment receipt to <a href="https://instagram.com/nasi.mpls" target="_blank" rel="noreferrer" className="text-brand-yellow font-bold hover:underline">@nasi.mpls</a> before or after submitting.</p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="rantang-handle" className="font-serif text-[1.05rem] font-bold text-brand-cream/90">Your Handle</Label>
+              <Label htmlFor="rantang-handle" className="font-serif text-xl font-bold text-brand-cream/90">Your Handle</Label>
               <Input id="rantang-handle" name="payment_handle" placeholder="@username" className="h-10 border-white/10 bg-white/5 focus-visible:border-brand-yellow placeholder:text-brand-cream/30 rounded-2xl" />
             </div>
 
             <div className="space-y-2">
-              <Label className="font-serif text-[1.05rem] font-bold text-brand-cream/90">Paid Status</Label>
+              <Label className="font-serif text-xl font-bold text-brand-cream/90">Paid Status</Label>
               <RadioGroup name="paid_status" required className="grid grid-cols-2 gap-2">
                 <div className="relative">
                   <RadioGroupItem value="Yes" id="paid-yes" className="peer absolute opacity-0" />
-                  <Label htmlFor="paid-yes" className="flex h-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-[0.85rem] font-semibold text-brand-cream/40 transition-all hover:bg-white/10 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-yellow/50 peer-data-[checked]:border-brand-yellow peer-data-[checked]:bg-brand-yellow peer-data-[checked]:text-brand-deep-green">
+                  <Label htmlFor="paid-yes" className="flex h-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl font-semibold text-brand-cream/40 transition-all hover:bg-white/10 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-yellow/50 peer-data-[checked]:border-brand-yellow peer-data-[checked]:bg-brand-yellow peer-data-[checked]:text-brand-deep-green">
                     Already Paid
                   </Label>
                 </div>
                 <div className="relative">
                   <RadioGroupItem value="No" id="paid-no" className="peer absolute opacity-0" />
-                  <Label htmlFor="paid-no" className="flex h-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-[0.85rem] font-semibold text-brand-cream/40 transition-all hover:bg-white/10 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-yellow/50 peer-data-[checked]:border-brand-yellow peer-data-[checked]:bg-brand-yellow peer-data-[checked]:text-brand-deep-green">
+                  <Label htmlFor="paid-no" className="flex h-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl font-semibold text-brand-cream/40 transition-all hover:bg-white/10 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-yellow/50 peer-data-[checked]:border-brand-yellow peer-data-[checked]:bg-brand-yellow peer-data-[checked]:text-brand-deep-green">
                     Paying Now
                   </Label>
                 </div>
@@ -461,10 +461,10 @@ export function RantangForm() {
             <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <Label className="font-serif text-[1.1rem] font-black text-brand-yellow">Packaging Return Deal</Label>
-                  <span className="rounded-full bg-brand-yellow px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wider text-brand-deep-green">10% Off</span>
+                  <Label className="font-serif text-xl font-black text-brand-yellow">Packaging Return Deal</Label>
+                  <span className="rounded-full bg-brand-yellow px-2 py-0.5 text-xl font-black uppercase tracking-wider text-brand-deep-green">10% Off</span>
                 </div>
-                <p className="text-[0.85rem] text-brand-cream/70 leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                <p className="text-xl text-brand-cream/70 leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
                   Help us keep it green by returning your food packaging
                 </p>
               </div>
@@ -497,11 +497,11 @@ export function RantangForm() {
 
       {/* Misc Info Section */}
       <div className="group/card bg-white/[0.03] border border-white/10 rounded-3xl p-4 shadow-sm space-y-2.5 transition-all duration-300 hover:bg-white/[0.04] hover:border-white/20">
-        <h3 className="font-serif text-[1.05rem] font-bold text-brand-yellow flex items-center gap-2">
+        <h3 className="font-serif text-xl font-bold text-brand-yellow flex items-center gap-2">
           Final Notes
         </h3>
         <div className="space-y-1.5">
-          <Label htmlFor="rantang-notes" className="font-serif text-[1.05rem] font-bold text-brand-cream/90">Anything else?</Label>
+          <Label htmlFor="rantang-notes" className="font-serif text-xl font-bold text-brand-cream/90">Anything else?</Label>
           <Textarea
             id="rantang-notes"
             name="notes"
@@ -515,7 +515,7 @@ export function RantangForm() {
         <Button 
           type="submit" 
           size="lg"
-          className="h-12 w-full md:w-auto px-10 text-[1rem] font-black bg-brand-yellow text-brand-deep-green hover:bg-white shadow-lg active:scale-95 transition-all disabled:opacity-80 rounded-full"
+          className="h-12 w-full md:w-auto px-10 text-xl font-black bg-brand-yellow text-brand-deep-green hover:bg-white shadow-lg active:scale-95 transition-all disabled:opacity-80 rounded-full"
           disabled={isSubmitting}
         >
           {isSubmitting ? (

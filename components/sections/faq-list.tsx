@@ -34,7 +34,7 @@ export function FaqList({ items }: { items: readonly FaqItem[] }) {
               className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left transition-all group/btn"
               aria-expanded={isOpen}
             >
-              <span className={`text-[1.1rem] font-black transition-colors duration-300 ${
+              <span className={`text-xl font-black transition-colors duration-300 ${
                 isOpen ? "text-brand-green" : "text-brand-deep-green/80 group-hover/btn:text-brand-deep-green"
               }`}>
                 {item.question}
@@ -62,7 +62,7 @@ export function FaqList({ items }: { items: readonly FaqItem[] }) {
                     transition: { height: { duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }, opacity: { duration: 0.2 } }
                   }}
                 >
-                  <div className="border-t border-brand-deep-green/5 px-6 pb-6 pt-4 text-[1rem] leading-relaxed text-brand-charcoal/80 font-medium">
+                  <div className="border-t border-brand-deep-green/5 px-6 pb-6 pt-4 text-xl leading-relaxed text-brand-charcoal/80 font-medium">
                     {item.answer}
                   </div>
                 </motion.div>

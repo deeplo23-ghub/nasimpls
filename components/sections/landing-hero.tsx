@@ -168,12 +168,11 @@ export function LogoTilt() {
   );
 }
 
-function TiltCard({ btn, isSmall = false, isExternal = false, icon: Icon, onTrigger }: { 
+function TiltCard({ btn, isSmall = false, isExternal = false, icon: Icon }: { 
   btn: any, 
   isSmall?: boolean, 
   isExternal?: boolean,
-  icon?: any,
-  onTrigger?: (rect: DOMRect, bg: string, label: string, href: string, isExternal: boolean, isSmall: boolean) => void
+  icon?: any
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const x = useMotionValue(0);
@@ -196,33 +195,38 @@ function TiltCard({ btn, isSmall = false, isExternal = false, icon: Icon, onTrig
   };
 
   const Content = (
-    <div className={`flex ${Icon ? "flex-row items-center gap-3" : "flex-col items-center text-center"} w-full translate-y-0.5`} style={{ transform: "translateZ(30px)" }}>
+    <div className={`flex ${Icon ? "flex-row items-center gap-3" : "flex-col items-center text-center"} w-full`} style={{ transform: "translateZ(30px)" }}>
       {Icon && (
-        <div className={`flex ${isSmall ? "h-8 w-8" : "h-10 w-10"} shrink-0 items-center justify-center rounded-xl bg-brand-deep-green text-brand-yellow shadow-lg transition-transform group-hover:rotate-12`}>
+        <div className={`flex ${isSmall ? "h-8 w-8" : "h-10 w-10"} shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)] text-white shadow-lg transition-transform group-hover:rotate-12`}>
           <Icon className={`${isSmall ? "h-5 w-5" : "h-6 w-6"}`} />
         </div>
       )}
       <div className={`flex flex-col ${Icon ? "items-start text-left" : "items-center text-center"} w-full`}>
         {!isSmall && !Icon && (
-          <span className="block text-[13px] font-black uppercase tracking-[0.2em] text-brand-deep-green/40 leading-none mb-1">
+          <span className="block text-xl font-black uppercase tracking-[0.2em] text-brand-deep-green/40 leading-none mb-1">
             Explore
           </span>
         )}
         {btn.subLabel && (
-          <span className="block text-[10px] font-black uppercase tracking-widest text-brand-deep-green/40 leading-none mb-1">
+          <span className="block text-xl font-black uppercase tracking-widest text-brand-deep-green/40 leading-none mb-1">
             {btn.subLabel}
           </span>
         )}
         <SlotText 
           text={btn.label} 
-          active={isHovered} 
-          className={`font-serif font-black text-brand-deep-green leading-none w-full ${isSmall ? "text-xl focus:text-2xl" : "text-3xl sm:text-5xl"}`}
+          className={`font-serif font-black text-brand-deep-green leading-none w-full ${
+            isSmall 
+              ? "text-xl" 
+              : Icon 
+                ? "text-xl sm:text-2xl" 
+                : "text-2xl sm:text-3xl"
+          }`}
         />
       </div>
     </div>
   );
 
-  const cardClasses = `group relative block w-full rounded-[1.75rem] border-[3px] border-brand-deep-green ${btn.bg} shadow-[8px_8px_0_0_#1D261D] transition-all hover:shadow-[12px_12px_0_0_#1D261D] ${isSmall ? (Icon ? "p-3 px-4" : "p-4") : Icon ? "p-4 px-5" : "p-7"}`;
+  const cardClasses = `group relative block w-full rounded-[1.75rem] border-[3px] border-brand-deep-green ${btn.bg} shadow-[8px_8px_0_0_#1D261D] transition-all hover:shadow-[12px_12px_0_0_#1D261D] ${isSmall ? (Icon ? "p-3 px-4" : "py-7 px-2") : Icon ? "p-4 px-5" : "p-7"}`;
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Standard navigation
@@ -237,7 +241,7 @@ function TiltCard({ btn, isSmall = false, isExternal = false, icon: Icon, onTrig
       style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className={`relative perspective-1000 ${isSmall ? "w-full md:w-44" : Icon ? "w-full md:w-auto md:min-w-[200px]" : "w-full md:w-72"} ${btn.rotate}`}
+      className={`relative perspective-1000 ${isSmall ? "w-full md:w-32" : "w-full md:w-60"} ${btn.rotate}`}
     >
       {isExternal ? (
         <a href={btn.href} target="_blank" rel="noreferrer" onClick={handleClick} style={{ transform: "translateZ(50px)" }} className={cardClasses}>
@@ -259,7 +263,7 @@ const mainButtons = [
 ];
 
 const secondaryButtons = [
-  { label: "Our Story", href: "/story", bg: "bg-brand-cream", rotate: "rotate-2" },
+  { label: "Story", href: "/story", bg: "bg-brand-cream", rotate: "rotate-2" },
   { label: "Contact", href: "/contact", bg: "bg-brand-cream", rotate: "-rotate-1" }
 ];
 
@@ -333,7 +337,7 @@ export function LandingHero() {
       
       <GrainOverlay />
       
-      <div className="relative z-20 mx-auto flex w-full max-w-6xl flex-col items-center px-6 text-center">
+      <div className="relative z-20 mx-auto flex w-full max-w-[1600px] flex-col items-center px-6 xl:px-[190px] text-center">
         {/* Logo - appears first (delay 0s) */}
         <motion.div
           initial={{ opacity: 0, scale: 0, y: "100vh" }}
@@ -357,21 +361,21 @@ export function LandingHero() {
           className="flex flex-col gap-6 md:gap-8 w-full items-center"
         >
           {/* All Buttons Row */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full flex-wrap">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full flex-wrap lg:flex-nowrap">
+            <TiltCard btn={secondaryButtons[0]} isSmall />
             {mainButtons.map((btn) => <TiltCard key={btn.href} btn={btn} />)}
-            {secondaryButtons.map((btn) => <TiltCard key={btn.href} btn={btn} isSmall />)}
+            <TiltCard btn={secondaryButtons[1]} isSmall />
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 w-full">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full mt-2">
             <TiltCard 
               isExternal
-              isSmall
               icon={InstagramIcon}
               btn={{ 
                 label: "@nasi.mpls", 
                 href: siteConfig.social.instagram, 
-                bg: "bg-brand-yellow", 
-                rotate: "rotate-2",
+                bg: "bg-white", 
+                rotate: "rotate-1",
                 subLabel: "Join us"
               }} 
             />

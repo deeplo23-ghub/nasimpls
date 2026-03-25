@@ -5,9 +5,9 @@ import { SiteHeader } from "@/components/layout/site-header";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="site-shell">
+    <div className="site-shell flex flex-col min-h-screen">
       <SiteHeader />
-      <main>{children}</main>
+      <main className="flex-1">{children}</main>
       <SiteFooter />
     </div>
   );
